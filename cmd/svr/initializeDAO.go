@@ -8,14 +8,14 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-func initializeDAO(config config.Config) (facade.APIFacadeI, error) {
-	psqlDbConfig, err := config.GetDatabaseConfig("PSQL")
+func initializeDAO(config config.Config) (facade.ServiceI, error) {
+	psqlDbConfig, err := config.Database("PSQL")
 	if err != nil {
 		log.Error(err)
 		return nil, err
 	}
 
-	return facade.APIFacade{
+	return facade.Facade{
 		PSQLDao: psql.Facade{
 			PSQL: psql2.DAO{
 				DB: psqlDbConfig.DB,

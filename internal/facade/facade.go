@@ -8,15 +8,15 @@ import (
 	"strings"
 )
 
-type APIFacadeI interface {
+type ServiceI interface {
 	FacadeResponse(ctx context.Context, req models.Request) (resp models.Response)
 }
 
-type APIFacade struct {
+type Facade struct {
 	PSQLDao psql2.FacadeI
 }
 
-func (s APIFacade) FacadeResponse(ctx context.Context, req models.Request) (resp models.Response) {
+func (s Facade) FacadeResponse(ctx context.Context, req models.Request) (resp models.Response) {
 	//TODO add validation
 	if strings.EqualFold(req.Type, "Insert") {
 		_ = s.PSQLDao.AddNew(ctx, request.PSQLRequest{})
